@@ -1,0 +1,10 @@
+*** Information
+Abstract submitted to and Poster presented at the
+[[http://www.eoscience20.org/][3rd Satellite Soil Moisture Validation and
+Application Workshop]] held in New York on September 21-22 2016.
+
+*** License
+The documents in this repository are licensed is under a [[http://creativecommons.org/licenses/by/4.0/deed][Creative Commons
+Attribution 4.0 International]]
+
+[[http://creativecommons.org/licenses/by/4.0/deed][file:http://i.creativecommons.org/l/by/3.0/80x15.png]]
