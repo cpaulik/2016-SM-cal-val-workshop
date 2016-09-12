@@ -1,0 +1,340 @@
+\documentclass[20pt, a0paper, portrait]{tikzposter}
+
+% \usepackage[absolute]{textpos}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} 
+\usepackage{fourier} 
+\usepackage{blindtext}
+\usepackage{comment}
+\usepackage{enumerate}
+\usepackage{xcolor}
+\usepackage{boolexpr}
+\usepackage{multicol}
+\setlength{\columnsep}{1.4cm}
+
+\definecolor{tublue}{HTML}{3571A1}
+\definecolor{tulightblue}{HTML}{589DD4}
+\definecolor{tuorange}{HTML}{F6C07C}
+
+
+% \defineblockstyle{myDefault}{
+%     titlewidthscale=1, bodywidthscale=1, titleleft,
+%     titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
+%     bodyverticalshift=0pt, roundedcorners=12, linewidth=0.2cm,
+%     titleinnersep=1cm, bodyinnersep=1cm
+% }{
+%     \begin{scope}[line width=\blocklinewidth, rounded corners=\blockroundedcorners]
+%         \ifBlockHasTitle%
+%            \draw[color=tublue, fill=blocktitlebgcolor] (blockbody.south west) rectangle (blocktitle.north east);
+%            \draw[color=tulightblue, fill=blockbodybgcolor] (blockbody.south west) rectangle (blockbody.north east);
+%         \else
+%            \draw[color=tulightblue, fill=blockbodybgcolor] (blockbody.south west) rectangle (blockbody.north east);
+%         \fi
+%     \end{scope}
+% }
+
+\defineblockstyle{myDefault}{
+    titlewidthscale=1, bodywidthscale=1, titleleft,
+    titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
+    bodyverticalshift=0pt, roundedcorners=0, linewidth=0.1cm,
+    titleinnersep=1cm, bodyinnersep=1cm
+}{
+    \begin{scope}[line width=\blocklinewidth, rounded corners=\blockroundedcorners]
+       \ifBlockHasTitle %
+           \draw[draw=none]%, fill=blockbodybgcolor]
+               (blockbody.south west) rectangle (blocktitle.north east);
+           \draw[color=tuorange, loosely dashed]
+               (blocktitle.south west) -- (blocktitle.south east);%
+       \else
+             \draw[draw=none]%, fill=blockbodybgcolor]
+                 (blockbody.south west) rectangle (blockbody.north east);
+        \fi
+    \end{scope}
+}
+
+\definetitlestyle{myWave}{
+    width=\paperwidth, roundedcorners=0, linewidth=0pt, innersep=1.5cm,
+    titletotopverticalspace=0mm, titletoblockverticalspace=65mm,
+    titlegraphictotitledistance=10pt, titletextscale=2
+}{
+    \coordinate (topleft) at (\titleposleft,\titlepostop);
+    \coordinate (topright) at (\titleposright,\titlepostop);
+    \coordinate (lefttoright) at (\titlewidth,0);
+    \coordinate (head) at (0,\titlepostop-\titleposbottom);
+    \coordinate (bottomright) at (\titleposright,0);
+    %
+    % \draw[draw=none, left color=blocktitlebgcolor!90!black, right color=titlebgcolor!95]%
+    \draw[draw=none, left color=tublue, right color=tublue]%
+        (topright) -- (topleft) -- %
+        ($(topleft) - (head)-(0,3)$) .. controls %
+        (12,50) .. %
+        ($(topright) - (head)-(0,1.5)$) -- cycle;
+    %
+    \draw[draw=none, left color=tuorange, right color=tuorange] %
+        ($(topleft) - (head)-(0,3.5)$) -- %
+        ($(topleft) - (head)-(0,3)$) .. controls %
+        (12,50) .. %
+        ($(topright) - (head)-(0,1)$) --
+        ($(topright) - (head)-(0,1.4)$) .. controls %
+        (12,49.5) .. %
+        ($(topleft) - (head) - (0,3.5)$);
+    %
+    \draw[draw=none, left color=tulightblue, right color=tulightblue] %
+        ($(topleft) - (head)-(0,5)$) -- %
+        ($(topleft) - (head)-(0,3.5)$) .. controls %
+        (12,49.5) .. %
+        ($(topright) - (head)-(0,1.4)$) --
+        ($(topright) - (head)-(0,1.8)$) .. controls %
+        (12,48.5) .. %
+        ($(topleft) - (head) - (0,5)$);
+    %
+    \draw[draw=none, left color=tublue, right color=tublue] %
+        ($(topleft) - (head)-(0,5.5)$) -- %
+        ($(topleft) - (head)-(0,5)$) .. controls %
+        (12,48.5) .. %
+        ($(topright) - (head)-(0,1.8)$) --
+        ($(topright) - (head)-(0,2.2)$) .. controls %
+        (12,48) .. %
+        ($(topleft) - (head) - (0,5.5)$);
+    %
+    \draw[draw=none, left color=tublue, right color=tublue]%
+        ($(bottomleft) + (\titlewidth,0)$) -- (bottomleft) -- %
+        ($(bottomleft) + (0,8.5)$) .. controls %
+        (-12, -52.5) .. %
+        ($(bottomleft) + (\titlewidth,10)$) -- cycle;
+    %
+    \draw[draw=none, left color=tuorange, right color=tuorange]%
+        ($(bottomleft) + (\titlewidth,10)$) -- %
+        ($(bottomleft) + (\titlewidth,10.5)$) .. controls %
+        (-12, -52) .. %
+        ($(bottomleft) + (0,9)$) -- %
+        ($(bottomleft) + (0,8.5)$) .. controls %
+        (-12, -52.5) .. %
+        ($(bottomleft) + (\titlewidth,10)$);
+    %
+    \draw[draw=none, left color=tulightblue, right color=tulightblue]%
+        ($(bottomleft) + (\titlewidth,10.5)$) -- %
+        ($(bottomleft) + (\titlewidth,12)$) .. controls %
+        (-12, -51.5) .. %
+        ($(bottomleft) + (0,9.5)$) -- %
+        ($(bottomleft) + (0,9)$) .. controls %
+        (-12, -52) .. %
+        ($(bottomleft) + (\titlewidth,10.5)$);
+    %
+    \draw[draw=none, left color=tublue, right color=tublue]%
+        ($(bottomleft) + (\titlewidth,12)$) -- %
+        ($(bottomleft) + (\titlewidth,12.5)$) .. controls %
+        (-12, -51) .. %
+        ($(bottomleft) + (0,10)$) -- %
+        ($(bottomleft) + (0,9.5)$) .. controls %
+        (-12, -51.5) .. %
+        ($(bottomleft) + (\titlewidth,12)$);
+    %
+    % \draw[draw=none, left color=blocktitlebgcolor, right color=white] %
+    % \draw[draw=none, left color=tuorange, right color=tuorange] %
+    %     ($(topleft) - (head)-(0,2)$) .. controls %
+    %     ($(topleft) - (head)-(-6,3) + 0.25*(lefttoright) + (0,10)$) and ($(topright) -
+    %     (head) - 0.25*(lefttoright) - (-6,17)$).. %
+    %     ($(topright) - (head)$) .. controls %
+    %     ($(topright) - (head) - 0.25*(lefttoright)-(-7,19)$) and %
+    %     ($(topleft) - (head)-(-9,5) + 0.25*(lefttoright) + (0,10)$) .. %
+    %     ($(topleft) - (head)-(0,4)$);
+    %
+    % \draw[draw=none, left color=white, right color=blocktitlebgcolor!90!black]%
+    % \draw[draw=none, left color=tulightblue, right color=tulightblue]%
+    %     ($(topleft) - (head)-(0,2)$) .. controls %
+    %     ($(topleft) - (head)-(-6,3) + 0.25*(lefttoright) + (0,10)$) and ($(topright) -
+    %     (head)+(0,6) - 0.15*(lefttoright) - (-6,17)$)..%
+    %     ($(topright) - (head)+(0,8)$) -- %
+    %     ($(topright) - (head)$) .. controls %
+    %     ($(topright) - (head) - 0.25*(lefttoright) - (-6,17)$) and %
+    %     ($(topleft) - (head)-(-8,4) + 0.25*(lefttoright) + (0,10)$) .. %
+    %     ($(topleft) - (head)-(0,2)$);
+}
+
+\definecolorpalette{sampleColorPalette} {
+  \definecolor{colorOne}{named}{tublue}
+  \definecolor{colorTwo}{named}{tuorange}
+  \definecolor{colorThree}{named}{tulightblue}
+}
+
+\definecolorstyle{sampleColorStyle} {
+  \definecolor{colorOne}{named}{blue}
+  \definecolor{colorTwo}{named}{yellow}
+  \definecolor{colorThree}{named}{orange}
+  }{
+  % Background Colors
+  \colorlet{backgroundcolor}{white}
+  \colorlet{framecolor}{white}
+  % Title Colors
+  \colorlet{titlefgcolor}{white}
+  \colorlet{titlebgcolor}{tublue}
+  % Block Colors
+  \colorlet{blocktitlebgcolor}{white}
+  \colorlet{blocktitlefgcolor}{tublue}
+  \colorlet{blockbodybgcolor}{white}
+  \colorlet{blockbodyfgcolor}{black}
+  % Innerblock Colors
+  \colorlet{innerblocktitlebgcolor}{white}
+  \colorlet{innerblocktitlefgcolor}{black}
+  \colorlet{innerblockbodybgcolor}{black}
+  \colorlet{innerblockbodyfgcolor}{black}
+  % Note colors
+  \colorlet{notefgcolor}{black}
+  \colorlet{notebgcolor}{colorTwo!50!white}
+  \colorlet{noteframecolor}{colorTwo}
+}
+
+\definenotestyle{myNotestyle}{ targetoffsetx=0pt, targetoffsety=0pt,
+  angle=45, radius=8cm, width=6cm, connection=true, rotate=0, roundedcorners=0,
+  linewidth=1pt, innersep=0pt%
+}{ \ifNoteHasConnection \draw[thick] (notecenter) -- (notetarget)
+  node{$\bullet$}; \fi
+  \draw[draw=notebgcolor,fill=notebgcolor,rotate=\noterotate] (notecenter.south
+  west) rectangle (notecenter.north east); }
+
+\definelayouttheme{sample}{
+  \usecolorstyle[colorPalette=sampleColorPalette]{sampleColorStyle}
+  \usebackgroundstyle{sample}
+  \usetitlestyle{myWave}
+  \useblockstyle{myDefault}
+  \useinnerblockstyle{Minimal}
+  \usenotestyle{myNotestyle}
+}
+
+\usetheme{sample}
+
+\defineblockstyle{MyBlock}{% define a custom style for a block
+    titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
+    bodyverticalshift=0pt, roundedcorners=22, linewidth=5pt,
+    titleinnersep=8mm, bodyinnersep=8mm
+}{
+}
+
+% \newcommand\figureblock[3][MyBlock]{\useblockstyle{#1}\block{#2}{#3}\useblockstyle{Basic}}
+\newcommand\figureblock[3][MyBlock]{\useblockstyle{#1}\block{#2}{#3}\useblockstyle{myDefault}}
+
+% \settitle{ \vbox{ \centering \color{titlefgcolor} \Huge \textbf{\textsf{\@title}}
+% \\ \@author~ \\ \@institute \\[1em] \@titlegraphic } }
+
+% \settitle{ \vbox{ \centering \color{titlefgcolor} {\Huge \textbf{\textsf{\@title}}}
+% \\ [1em] {\LARGE \textsf{\@author~}} \\ [1em] {\Large \textsf{\@institute} }} }
+
+% \settitle{ \begin{columns} \column{0.2} \@titlegraphic \column{0.8} \vbox{ \centering \color{titlefgcolor} {\Huge \textbf{\textsf{\@title}}}
+% \\ [1em] {\LARGE \textsf{\@author~}} \\ [1em] {\Large \textsf{\@institute} }} \end{columns}}
+
+\settitle{
+  \begin{minipage}{0.1\linewidth}
+      \centering
+      \@titlegraphic
+  \end{minipage}%
+  \hspace{10.5cm}
+  \begin{minipage}{0.7\linewidth}
+        \color{titlefgcolor}
+        {\bfseries \sffamily \huge \@title \par}
+        \vspace*{1em}
+        {\LARGE \sffamily \@author \par}
+        \vspace*{1em}
+        {\Large \sffamily \@institute \par}
+        \vspace*{1em}
+        {\large \sffamily \@date}
+    \end{minipage}%
+  \hspace{2cm}
+}
+
+\title{A flexible, open source time series processing framework for soil moisture validation.}
+\author{Christoph Paulik, Sebastian Hahn, Christoph Reimer, Thomas Mistelbauer, Alexander Gruber}
+\date{3rd Satellite Soil Moisture Validation and Application Workshop, September
+21-22, 2016}
+\titlegraphic{\includegraphics[scale=1.]{graphics/tulogo3.png}}
+\institute{TU Wien, Department of Geodesy and Geoinformation}
+ 
+\begin{document}
+ 
+\maketitle
+
+\node[draw=none, rectangle, minimum width = .6cm, align=left, inner sep = 1cm,
+text=white, text width = 30cm, anchor=west] at (-41,-55)
+{\textbf{References}\\ \begin{enumerate}[{[1]}] \color{white}
+  \item
+
+  \end{enumerate}};
+
+\node[draw=none, minimum width = 6cm, text width = 25cm, align=justify, inner
+sep = 1cm, text=white, anchor=west] at (-8,-55) {\textbf{Acknowledgments}\\ The
+  work presented in this poster was performed as part of the scientific quality
+  monitoring of the Copernicus Global Land Service (C-GLS) Soil Water Index
+  (SWI) product.};
+
+\node[draw=none, minimum width = 6cm, right=.5, align=right, text=white, inner sep = 1cm]
+at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\ 
+  TU Wien \\
+  Department of Geodesy and Geoinformation\\
+  E-mail: christoph.paulik@geo.tuwien.ac.at\\
+  Web: http://rs.geo.tuwien.ac.at};
+
+\begin{columns}
+
+  \column{.5} 
+
+  \block{1. Introduction}{
+    \begin{multicols}{2}
+
+      The validation of remotely sensed soil moisture data is quickly becoming a
+      routine task which is performed automatically during data production. In
+      the course of our work producing and monitoring the H-SAF and Copernicus
+      soil moisture products we saw the need for a reusable toolbox performing
+      common validation tasks. For this purpose we have developed a suite of
+      open source Python packages for processing geospatial time series data.
+      These packages are well suited for the validation of soil moisture
+      datasets but can be used for any type of geospatial time series analyses.
+
+    \end{multicols}
+  }
+
+
+  \block{3. Features and Supported Datasets}{
+    \begin{multicols}{2}
+
+      this purpose which covers data downloading, conversion, reading,
+      temporal matching, scaling, metric calculation and storage of results. It
+      supports common in-situ (ISMN), remotely sensed (ASCAT, CCI, SMOS, SMAP)
+      as well as often used model data (GLDAS, ERA Interim/Land).
+
+    \end{multicols}
+  }
+
+  \column{.5}
+
+  \begin{subcolumns}
+    \subcolumn{.5}
+
+    \figureblock{}{
+      \begin{tikzfigure}[A common workflow showing the preprocessing steps
+        necessary during data preparation.\label{fig:hw}]
+          \includegraphics[width=0.20\textwidth]{graphics/preprocessing.eps}
+      \end{tikzfigure}
+      }
+
+    \subcolumn{.5}
+
+    \block{2. Geospatial time series processing}{
+
+      Geospatial time series generally involves 
+
+    }
+
+  \end{subcolumns}
+  
+    \block{4. Usage}{
+      \begin{multicols}{2}
+
+
+      \end{multicols}
+
+    }
+
+\end{columns}
+
+\end{document}

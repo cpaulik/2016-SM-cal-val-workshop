@@ -1,0 +1,31 @@
+#+title: A flexible, open source time series processing framework for soil moisture validation.
+
+* Authors
+
+Christoph Paulik, TU Wien
+Sebastian Hahn, TU Wien
+Christoph Reimer, TU Wien
+Thomas Mistelbauer, EODC (Earth Observation Data Center)
+Alexander Gruber, TU Wien
+
+* Abstract (max. 1200 characters)
+
+The validation of remotely sensed soil moisture data is quickly becoming a
+routine task. During our work validating the H-SAF and Copernicus soil moisture
+products we saw the need for a standard toolbox performing common validation
+tasks. We have developed a suite of open source Python packages for this
+purpose which covers data reading, temporal matching, scaling, metric
+calculation and storage of results. It supports common in-situ (ISMN), remotely
+sensed (ASCAT, CCI, SMOS, SMAP) as well as often used model data (GLDAS, ERA Interim/Land).
+
+To ensure reproducibility of results it also includes implementations of
+often used scaling methods (CDF matching, mean standard deviation scaling, etc.) 
+as well as common metrics (R, RMSD, triple collocation etc.).
+
+The framework itself is general enough to handle any number of datasets and
+combinations of metrics and is easily extended by new, user-written components.
+The validation results are stored as CF-conform netCDF files from which standard
+plots can be generated.
+
+Additionally it includes a web-interface for interactive exploration of
+validation results compatible with self-hosted data or data accessible through OpenDAP or WCS.

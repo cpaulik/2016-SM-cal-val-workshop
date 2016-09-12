@@ -1,0 +1,28 @@
+skinparam sequenceParticipantBackgroundColor #006699
+skinparam sequenceParticipantBorderColor #000000
+skinparam sequenceParticipantFontColor #FFFFFF
+skinparam sequenceArrowColor #000000
+skinparam sequenceLifeLineBorderColor #000000
+
+skinparam componentBackgroundColor #006699
+skinparam componentBorderColor #000000
+skinparam componentArrowColor #000000
+skinparam componentFontColor #FFFFFF
+
+skinparam noteBackgroundColor #DDDDDD
+skinparam noteBorderColor #000000
+
+skinparam activityBackgroundColor #006699
+skinparam activityBorderColor #000000
+skinparam activityFontColor #FFFFFF
+
+skinparam sequenceDividerFontColor #FFFFFF
+skinparam sequenceGroupFontColor #FFFFFF
+skinparam defaultFontColor #FFFFFF
+
+skinparam databaseBackgroundColor #DDDDDD
+
+skinparam classBackgroundColor #DDDDDD
+skinparam classBorderColor #006699
+skinparam objectBackgroundColor #DDDDDD
+skinparam objectBorderColor #006699
