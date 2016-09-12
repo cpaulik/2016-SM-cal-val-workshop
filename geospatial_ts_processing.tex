@@ -11,12 +11,15 @@
 \usepackage{xcolor}
 \usepackage{boolexpr}
 \usepackage{multicol}
+\usepackage{gensymb}
 \setlength{\columnsep}{1.4cm}
 
 \definecolor{tublue}{HTML}{3571A1}
 \definecolor{tulightblue}{HTML}{589DD4}
 \definecolor{tuorange}{HTML}{F6C07C}
+\definecolor{light-gray}{gray}{0.95}
 
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
 
 % \defineblockstyle{myDefault}{
 %     titlewidthscale=1, bodywidthscale=1, titleleft,
@@ -286,23 +289,34 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
       the course of our work producing and monitoring the H-SAF and Copernicus
       soil moisture products we saw the need for a reusable toolbox performing
       common validation tasks. For this purpose we have developed a suite of
-      open source Python packages for processing geospatial time series data.
-      These packages are well suited for the validation of soil moisture
-      datasets but can be used for any type of geospatial time series analyses.
+      open source Python packages called \code{poets\degree} which contains
+      functionality for processing geospatial time series data. These packages
+      are well suited for the validation of soil moisture datasets but can be
+      used for any type of geospatial time series analyses.
 
     \end{multicols}
   }
 
 
-  \block{3. Features and Supported Datasets}{
-    \begin{multicols}{2}
+  \block{3. Building blocks of \code{poets\degree}}{
 
-      this purpose which covers data downloading, conversion, reading,
-      temporal matching, scaling, metric calculation and storage of results. It
-      supports common in-situ (ISMN), remotely sensed (ASCAT, CCI, SMOS, SMAP)
-      as well as often used model data (GLDAS, ERA Interim/Land).
+    The 
 
-    \end{multicols}
+     \begin{itemize}
+     \item \code{smap\_io} is a package that supports downloading, reading and
+       conversion to time series of SMAP data.
+     \item \code{ascat} is a package that supports reading of ASCAT Level 2 and
+       H-SAF soil moisture products based on the ASCAT sensor.
+     \item \code{gldas}
+     \item \code{ecmwf\_models}
+     \item \code{pygeobase}
+     \item \code{pygeogrids}
+     \item \code{repurpose}
+     \item \code{pynetcf}
+     \item \code{pytesmo} is the Python Toolbox for the Evaluation of Soil
+       Moisture Observations and contains the validation framework and common metrics
+     \end{itemize} 
+
   }
 
   \column{.5}
@@ -311,8 +325,8 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
     \subcolumn{.5}
 
     \figureblock{}{
-      \begin{tikzfigure}[A common workflow showing the preprocessing steps
-        necessary during data preparation.\label{fig:hw}]
+      \begin{tikzfigure}[A common workflow showing the pre-processing steps
+        necessary during data preparation.\label{fig:pre}]
           \includegraphics[width=0.20\textwidth]{graphics/preprocessing.eps}
       \end{tikzfigure}
       }
@@ -321,13 +335,21 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
     \block{2. Geospatial time series processing}{
 
-      Geospatial time series generally involves 
+      The processing or comparison of geospatial time series data generally
+      involves some pre-processing work since most remote sensing data is
+      distributed in image or swath formats. Fig. \ref{fig:pre} shows common
+      pre-processing steps that are supported by the presented software
+      packages. Data aquisition which often happend via download is supported in
+      each sensor package. Image/swath resampling and subsetting is supported in
+      the \code{repurpose} package and done during the conversion into the time
+      series format. Data storage into Cimate and Forecast (CF) metadata
+      standard compliant netCDF files is handled by the \code{pynetcf} package.
 
     }
 
   \end{subcolumns}
   
-    \block{4. Usage}{
+    \block{4. A remote sensing processing pipeline with \code{poets\degree}}{
       \begin{multicols}{2}
 
 
