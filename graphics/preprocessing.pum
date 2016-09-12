@@ -4,6 +4,6 @@ if (optional) then
   : Resampling or Reprojection;
   : Subsetting (e.g. only land points);
 endif
-: Data Conversion (Time Series optimized);
-: Data storage;
+: Data Conversion;
+: Data storage (Time Series optimized);
 
