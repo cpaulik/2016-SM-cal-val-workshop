@@ -1,5 +1,7 @@
 !include theme.pum
-: Data aquisition;
+skinparam defaultFontColor #FFFFFF
+
+: Data acquisition;
 if (optional) then
   : Resampling or Reprojection;
   : Subsetting (e.g. only land points);
