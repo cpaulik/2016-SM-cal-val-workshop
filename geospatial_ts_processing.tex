@@ -12,6 +12,12 @@
 \usepackage{boolexpr}
 \usepackage{multicol}
 \usepackage{gensymb}
+\usepackage{minted}
+\usemintedstyle{friendly}
+\usepackage[]{caption}
+
+\usepackage{tcolorbox}
+
 \setlength{\columnsep}{1.4cm}
 
 \definecolor{tublue}{HTML}{3571A1}
@@ -283,7 +289,7 @@ sep = 1cm, anchor=north east]
 at (41,-52) {\textbf{Christoph Paulik}\\ 
   TU Wien \\
   Department of Geodesy and Geoinformation\\
-  E-mail: christoph.paulik@geo.tuwien.ac.at\\
+  email: christoph.paulik@geo.tuwien.ac.at\\
   Web: http://rs.geo.tuwien.ac.at};
 
 \begin{columns}
@@ -405,6 +411,7 @@ at (41,-52) {\textbf{Christoph Paulik}\\
       temporal reference dataset. An optional data space matching or scaling is
       performed against the scaling reference.
 
+
       The spatial, temporal and data space matched time series are then handed
       over to the metric calculators for the calculation of the supported
       metrics. These metric calculators are generally the only function that a
@@ -417,10 +424,25 @@ at (41,-52) {\textbf{Christoph Paulik}\\
 
   
     \block{4. Processing SMAP data with \code{poets\degree}}{
-      \begin{multicols}{2}
 
+      After installation of the \code{smap\_io} package the shell command
+      \code{smap\_download} will be available. It downloads the SMAP data from
+      the NASA servers and also supports authentification.
 
-      \end{multicols}
+     \begin{tcolorbox}
+     \label{lst:read_smap}
+     \inputminted[bgcolor=light-gray]{bash}{download_smap.sh}
+     \end{tcolorbox}
+     \captionof{listing}{Downloading SMAP SPL3SMP image data using the \code{smap\_io} package.}
+
+     When the data is downloaded it can be read with the Python class \code{SPL3SMP\_Ds}:
+
+     \begin{tcolorbox}
+     \label{lst:read_smap}
+     \inputminted[bgcolor=light-gray]{python}{read_smap.py}
+     \end{tcolorbox}
+     \captionof{listing}{Reading SMAP SPL3SMP image data using the \code{smap\_io} package.}
+
 
     }
 
