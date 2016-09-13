@@ -257,21 +257,24 @@
  
 \maketitle
 
-\node[draw=none, rectangle, minimum width = .6cm, align=left, inner sep = 1cm,
-text=white, text width = 30cm, anchor=west] at (-41,-55)
-{\textbf{References}\\ \begin{enumerate}[{[1]}] \color{white}
-  \item
+% \node[draw=none, rectangle, minimum width = .6cm, align=left, inner sep = 1cm,
+% text=white, text width = 30cm, anchor=west] at (-41,-55)
+% {\textbf{References}\\ \begin{enumerate}[{[1]}] \color{white}
+%   \item
 
-  \end{enumerate}};
+%   \end{enumerate}};
 
-\node[draw=none, minimum width = 6cm, text width = 25cm, align=justify, inner
-sep = 1cm, text=white, anchor=west] at (-8,-55) {\textbf{Acknowledgments}\\ The
+\node[draw=none, minimum width = 6cm, text width = 30cm, align=left, inner
+sep = 1cm, text=white, anchor=north west] at (-41,-52) {\textbf{Acknowledgments}\\ The
   work presented in this poster was performed as part of the scientific quality
   monitoring of the Copernicus Global Land Service (C-GLS) Soil Water Index
-  (SWI) product.};
+  (SWI) product under Framework Contract 388533 with the European Commission as
+  well as during development of the CCI soil moisture processor in the ESA CCI
+  Soil Moisture project under ESA Contract No. 4000112226/14/I-NB.};
 
-\node[draw=none, minimum width = 6cm, right=.5, align=right, text=white, inner sep = 1cm]
-at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\ 
+\node[draw=none, minimum width = 6cm, align=right, text=white, inner
+sep = 1cm, anchor=north east]
+at (41,-52) {\textbf{Dipl.-Ing. Christoph Paulik}\\ 
   TU Wien \\
   Department of Geodesy and Geoinformation\\
   E-mail: christoph.paulik@geo.tuwien.ac.at\\
@@ -289,36 +292,58 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
       the course of our work producing and monitoring the H-SAF and Copernicus
       soil moisture products we saw the need for a reusable toolbox performing
       common validation tasks. For this purpose we have developed a suite of
-      open source Python packages called \code{poets\degree} which contains
-      functionality for processing geospatial time series data. These packages
-      are well suited for the validation of soil moisture datasets but can be
-      used for any type of geospatial time series analyses.
+      open source Python packages called \code{poets\degree} (\textbf{P}ython
+      \textbf{o}pen \textbf{e}arth observation \textbf{t}ool\textbf{s}) which
+      contains functionality for processing geospatial time series data. These
+      packages are well suited for the validation of soil moisture datasets but
+      can be used for any type of geospatial time series analyses.
+
+      In Section 2. we will first present the packages which compose
+      \code{poets\degree}, Section 3 will present an overview over the
+      geospatial time series processing pipeline and its components and Section
+      4 will show an example of working with SMAP data using the packages in
+      \code{poets\degree}. Section 5 will give a small example of how to extend
+      \code{poets\degree}.
 
     \end{multicols}
   }
 
 
-  \block{3. Building blocks of \code{poets\degree}}{
+  \block{2. Building blocks of \code{poets\degree}}{
 
-    The 
+    \code{poets\degree} contains several Python packages that can be used alone
+    or in combination. This Section gives a short overview over the packages
+    providing most of the functionality:
 
      \begin{itemize}
+     \item \code{pygeobase} contains the abstract base classes that define the
+       interfaces for reading and writing supported datasets. These base classes
+       ensure a consistent interface for all datasets.
+     \item \code{pygeogrids} is a package for working with discrete global grids
+       (DGGs) on different geodetic datums and also support nearest neighbor
+       search and lookup table creation.
+     \item \code{pynetcf} implements the interface defined in \code{pygeobase}
+       for netCDF files with a focus on the time series representations defined
+       in the Climate and Forecast Metadata Conventions (CF Conventions).
+     \item \code{repurpose} is a package that performs the conversion from the
+       time-slice image or swath based format most remote sensing or modelled
+       products come in and converts the data into a time series optimized
+       format. It uses \code{pynetcf} for writing the output time series.
      \item \code{smap\_io} is a package that supports downloading, reading and
        conversion to time series of SMAP data.
      \item \code{ascat} is a package that supports reading of ASCAT Level 2 and
        H-SAF soil moisture products based on the ASCAT sensor.
-     \item \code{gldas}
-     \item \code{ecmwf\_models}
-     \item \code{pygeobase}
-     \item \code{pygeogrids}
-     \item \code{repurpose}
-     \item \code{pynetcf}
+     \item the \code{gldas} package supports downloading, reading and conversion
+       of GLDAS Noah data.
+     \item \code{ecmwf\_models} is a Python package for downloading, reading and
+       conversion of ERA Interim data.
      \item \code{pytesmo} is the \textbf{Py}thon \textbf{T}oolbox for the
        \textbf{E}valuation of \textbf{S}oil \textbf{M}oisture
        \textbf{O}bservations and contains the validation framework,
        implementations of common metrics and readers for the data from the
-       International Soil Moisture Network (ISMN). The validation framework is
-       explained in more detail in section 4.
+       International Soil Moisture Network (ISMN). The pytesmo validation
+       framework performs spatial, temporal and data space matching before
+       calculation of the validation metrics.
      \end{itemize} 
 
   }
@@ -337,7 +362,7 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
     \subcolumn{.5}
 
-    \block{2. Geospatial time series processing}{
+    \block{3. Geospatial time series processing}{
 
       The processing or comparison of geospatial time series data generally
       involves some pre-processing work since most remote sensing data is
@@ -353,7 +378,7 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
   \end{subcolumns}
   
-    \block{4. A remote sensing processing pipeline with \code{poets\degree}}{
+    \block{4. Processing SMAP data with \code{poets\degree}}{
       \begin{multicols}{2}
 
 
@@ -361,6 +386,13 @@ at (24,-55) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
     }
 
+    \block{5. Extending \code{poets\degree}}{
+      \begin{multicols}{2}
+
+
+      \end{multicols}
+
+    }
 \end{columns}
 
 \end{document}
