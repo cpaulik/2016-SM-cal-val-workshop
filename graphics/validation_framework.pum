@@ -1,0 +1,11 @@
+!include theme.pum
+(*) -right-> "n Stored Timeseries Datasets"
+
+partition "pytesmo validation framework " {
+  "n Stored Timeseries Datasets" -right-> "Spatial matching"
+  "Spatial matching" -right-> "Reading spatially matched time series"
+  "Reading spatially matched time series" -right-> "Temporal matching"
+  "Temporal matching" --> "Data space matching/scaling"
+  "Data space matching/scaling" -left-> "Metric calculation"
+  "Metric calculation" -left-> "Storage of results"
+}

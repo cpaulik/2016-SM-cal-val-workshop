@@ -212,11 +212,17 @@
     titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
     bodyverticalshift=0pt, roundedcorners=22, linewidth=5pt,
     titleinnersep=8mm, bodyinnersep=8mm
-}{
-}
+}{}
+
+\defineblockstyle{OffsetBlock}{% define a custom style for a block
+    titleoffsetx=0pt, titleoffsety=0pt, bodyoffsetx=0pt, bodyoffsety=0pt,
+    bodyverticalshift=-2cm, roundedcorners=22, linewidth=5pt,
+    titleinnersep=8mm, bodyinnersep=8mm
+}{}
 
 % \newcommand\figureblock[3][MyBlock]{\useblockstyle{#1}\block{#2}{#3}\useblockstyle{Basic}}
 \newcommand\figureblock[3][MyBlock]{\useblockstyle{#1}\block{#2}{#3}\useblockstyle{myDefault}}
+\newcommand\figureblockoffset[3][OffsetBlock]{\useblockstyle{#1}\block{#2}{#3}\useblockstyle{myDefault}}
 
 % \settitle{ \vbox{ \centering \color{titlefgcolor} \Huge \textbf{\textsf{\@title}}
 % \\ \@author~ \\ \@institute \\[1em] \@titlegraphic } }
@@ -274,7 +280,7 @@ sep = 1cm, text=white, anchor=north west] at (-41,-52) {\textbf{Acknowledgments}
 
 \node[draw=none, minimum width = 6cm, align=right, text=white, inner
 sep = 1cm, anchor=north east]
-at (41,-52) {\textbf{Dipl.-Ing. Christoph Paulik}\\ 
+at (41,-52) {\textbf{Christoph Paulik}\\ 
   TU Wien \\
   Department of Geodesy and Geoinformation\\
   E-mail: christoph.paulik@geo.tuwien.ac.at\\
@@ -348,17 +354,7 @@ at (41,-52) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
   }
 
-  \column{.5}
-
   \begin{subcolumns}
-    \subcolumn{.5}
-
-    \figureblock{}{
-      \begin{tikzfigure}[A common workflow showing the pre-processing steps
-        necessary during data preparation.\label{fig:pre}]
-          \includegraphics[width=0.20\textwidth]{graphics/preprocessing.eps}
-      \end{tikzfigure}
-      }
 
     \subcolumn{.5}
 
@@ -376,7 +372,49 @@ at (41,-52) {\textbf{Dipl.-Ing. Christoph Paulik}\\
 
     }
 
+
+    \subcolumn{.5}
+
+    \figureblock{}{
+      \begin{tikzfigure}[A common workflow showing the pre-processing steps
+        necessary during data preparation.\label{fig:pre}]
+          \includegraphics[width=0.20\textwidth]{graphics/preprocessing.eps}
+      \end{tikzfigure}
+      }
+      
   \end{subcolumns}
+
+    \figureblockoffset{}{
+      \begin{tikzfigure}[Processing pipeline implemented in the pytesmo
+        validation framework for comparing geospatial time series datasets. \label{fig:val_framework}]
+          \includegraphics[width=0.40\textwidth]{graphics/validation_framework.eps}
+      \end{tikzfigure}
+      }
+
+  
+  \column{.5}
+
+  
+  \block{}{ 
+    \begin{multicols} {2}
+
+      Fig. \ref{fig:val_framework} shows the processing steps implemented in the
+      pytesmo validation framework. First the n datasets are spatially matched
+      to the defined spatial reference dataset. After this the time series at
+      the spatially matched locations are read and temporally matched to the
+      temporal reference dataset. An optional data space matching or scaling is
+      performed against the scaling reference.
+
+      The spatial, temporal and data space matched time series are then handed
+      over to the metric calculators for the calculation of the supported
+      metrics. These metric calculators are generally the only function that a
+      user must implement to support a new metric. Metric calculators for common
+      use cases are included in \code{pytesmo}. The calcualated metrics are then
+      returned and stored as netCDF files.
+
+    \end{multicols}
+    }
+
   
     \block{4. Processing SMAP data with \code{poets\degree}}{
       \begin{multicols}{2}

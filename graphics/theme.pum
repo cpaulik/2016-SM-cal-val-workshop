@@ -18,7 +18,6 @@ skinparam activityFontColor #FFFFFF
 
 skinparam sequenceDividerFontColor #FFFFFF
 skinparam sequenceGroupFontColor #FFFFFF
-skinparam defaultFontColor #FFFFFF
 
 skinparam databaseBackgroundColor #DDDDDD
 
