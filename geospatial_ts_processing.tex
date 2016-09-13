@@ -1,6 +1,21 @@
 \documentclass[20pt, a0paper, portrait]{tikzposter}
 
 % \usepackage[absolute]{textpos}
+\makeatletter
+\renewenvironment{tikzfigure}[1][]{
+  \def \rememberparameter{#1}
+  \vspace{10pt}
+  \refstepcounter{figurecounter}
+  \begin{center}
+  }{
+    \ifx\rememberparameter\@empty
+    \else %nothing
+    \\[10pt]
+    {\normalsize Fig.~\thefigurecounter: \rememberparameter}
+    \fi
+  \end{center}
+}
+\makeatother
 
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern} 
@@ -14,7 +29,8 @@
 \usepackage{gensymb}
 \usepackage{minted}
 \usemintedstyle{friendly}
-\usepackage[]{caption}
+\usepackage[font=normalsize]{caption}
+
 
 \usepackage{tcolorbox}
 
@@ -425,11 +441,15 @@ at (41,-52) {\textbf{Christoph Paulik}\\
   
     \block{4. Processing SMAP data with \code{poets\degree}}{
 
+      This Section will show an example of SMAP data processing from
+      downloading the data to using it in a validation. The setup will be
+      similar with other supported datasets.
+
       After installation of the \code{smap\_io} package the shell command
       \code{smap\_download} will be available. It downloads the SMAP data from
-      the NASA servers and also supports authentification.
+      the NASA servers and also supports authentification (not shown).
 
-     \begin{tcolorbox}
+     \begin{tcolorbox}[colframe=white]
      \label{lst:read_smap}
      \inputminted[bgcolor=light-gray]{bash}{download_smap.sh}
      \end{tcolorbox}
@@ -437,7 +457,7 @@ at (41,-52) {\textbf{Christoph Paulik}\\
 
      When the data is downloaded it can be read with the Python class \code{SPL3SMP\_Ds}:
 
-     \begin{tcolorbox}
+     \begin{tcolorbox}[colframe=white]
      \label{lst:read_smap}
      \inputminted[bgcolor=light-gray]{python}{read_smap.py}
      \end{tcolorbox}
