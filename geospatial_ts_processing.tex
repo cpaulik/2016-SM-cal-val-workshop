@@ -42,7 +42,7 @@
 \definecolor{light-gray}{gray}{0.95}
 
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
-\newcommand{\link}[1]{\textcolor{tulightblue}{\texttt{#1}}}
+\newcommand{\link}[1]{\textcolor{tublue}{\texttt{#1}}}
 
 % \defineblockstyle{myDefault}{
 %     titlewidthscale=1, bodywidthscale=1, titleleft,
@@ -331,8 +331,8 @@ at (41,-52) {\textbf{Christoph Paulik}\\
       \code{poets\degree}, Section 3 will present an overview over the
       geospatial time series processing pipeline and its components and Section
       4 will show an example of working with SMAP data using the packages in
-      \code{poets\degree}. Section 5 will give a small example of how to extend
-      \code{poets\degree}.
+      \code{poets\degree}. 
+      \textbf{TODO: replace by short paragraph about the importance of code sharing}
 
     \end{multicols}
   }
@@ -459,7 +459,9 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        until 2016-02-01 with 4 parallel processes using the \code{smap\_io} package.}
      \end{tcolorbox}
 
-     When the data is downloaded it can be read with the Python class \code{SPL3SMP\_Ds}:
+     When the data is downloaded it can be read with the Python class
+     \code{SPL3SMP\_Ds} which returns a Image object which is basically a
+     dictionary of numpy arrays.
 
      \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
      \label{lst:read_smap}
@@ -492,10 +494,10 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        \texttt{pandas.DataFrame}.}
      \end{tcolorbox}
 
-     Listing 5 shows how to use the converted data in the pytesmo validation
+     Listing 5 shows how to use the converted data in the \code{pytesmo} validation
      framework together with GLDAS and ASCAT. More details about how the
      \texttt{process} is started, parallelized and how the results look like can
-     be found in the documentation of the package.
+     be found in the documentation of \code{pytesmo}.
 
      \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
      \label{lst:validation}
@@ -513,8 +515,15 @@ at (41,-52) {\textbf{Christoph Paulik}\\
 
     \block{5. Usage and Contribution}{
 
-      All information about the \code{poets\degree} project and its packages can
-      be found on the website {\huge \link{http://tuw-geo.github.io/poets/}}
+      All the information about the packages and how they relate to each other
+      can be found on the \code{poets\degree} website. We also welcome
+      contributions or bug reports on Github. All the packages come with
+      permissive open source licenses so you can use them without problems.
+
+      \begin{description}
+      \item [{\huge \textbf{Website}}] {\huge \link{tuw-geo.github.io/poets}}
+      \item [{\huge \textbf{Github group}}] {\huge \link{github.com/tuw-geo}}
+      \end{description}
 
 
     }
