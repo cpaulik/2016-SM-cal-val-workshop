@@ -42,6 +42,7 @@
 \definecolor{light-gray}{gray}{0.95}
 
 \newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\newcommand{\link}[1]{\textcolor{tulightblue}{\texttt{#1}}}
 
 % \defineblockstyle{myDefault}{
 %     titlewidthscale=1, bodywidthscale=1, titleleft,
@@ -355,8 +356,8 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        in the Climate and Forecast Metadata Conventions (CF Conventions).
      \item \code{repurpose} is a package that performs the conversion from the
        time-slice image or swath based format most remote sensing or modelled
-       products come in and converts the data into a time series optimized
-       format. It uses \code{pynetcf} for writing the output time series.
+       products come in into a time series optimized format. It uses
+       \code{pynetcf} for writing the output time series.
      \item \code{smap\_io} is a package that supports downloading, reading and
        conversion to time series of SMAP data.
      \item \code{ascat} is a package that supports reading of ASCAT Level 2 and
@@ -373,6 +374,7 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        framework performs spatial, temporal and data space matching before
        calculation of the validation metrics.
      \end{itemize} 
+
 
   }
 
@@ -449,28 +451,71 @@ at (41,-52) {\textbf{Christoph Paulik}\\
       \code{smap\_download} will be available. It downloads the SMAP data from
       the NASA servers and also supports authentification (not shown).
 
-     \begin{tcolorbox}[colframe=white]
-     \label{lst:read_smap}
+     \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
+     \label{lst:download_smap}
      \inputminted[bgcolor=light-gray]{bash}{download_smap.sh}
+     \tcblower
+     \captionof{listing}{Downloading SMAP SPL3SMP image data from 2016-01-01
+       until 2016-02-01 with 4 parallel processes using the \code{smap\_io} package.}
      \end{tcolorbox}
-     \captionof{listing}{Downloading SMAP SPL3SMP image data using the \code{smap\_io} package.}
 
      When the data is downloaded it can be read with the Python class \code{SPL3SMP\_Ds}:
 
-     \begin{tcolorbox}[colframe=white]
+     \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
      \label{lst:read_smap}
      \inputminted[bgcolor=light-gray]{python}{read_smap.py}
-     \end{tcolorbox}
+     \tcblower
      \captionof{listing}{Reading SMAP SPL3SMP image data using the \code{smap\_io} package.}
+     \end{tcolorbox}
 
+     The images can then be converted into a time series optimized format using
+     the command line program \code{smap\_repurpose}.
 
+     \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
+     \label{lst:repurpose_smap}
+     \inputminted[bgcolor=light-gray]{bash}{smap_repurpose.sh}
+     \tcblower
+     \captionof{listing}{Conversion of SMAP SPL3SMP image data into a time
+       series format from 2016-01-01 to 2016-02-01 for the two variables
+       soil\_moisture and soil\_moisture\_error.}
+     \end{tcolorbox}
+
+     The time series can the be read using the \code{SMAPTs} class as shown in
+     Listing 4.
+
+     \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
+     \inputminted[bgcolor=light-gray]{python}{read_smap_ts.py}
+     \label{lst:read_smap_ts}
+     \tcblower
+     \captionof{listing}{Reading of the SMAP time series format produced by the
+       \texttt{smap\_repurpose} command. The returned time series is a
+       \texttt{pandas.DataFrame}.}
+     \end{tcolorbox}
+
+     Listing 5 shows how to use the converted data in the pytesmo validation
+     framework together with GLDAS and ASCAT. More details about how the
+     \texttt{process} is started, parallelized and how the results look like can
+     be found in the documentation of the package.
+
+     \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
+     \label{lst:validation}
+     \inputminted[bgcolor=light-gray]{python}{validation_fwork.py}
+     \tcblower
+     \captionof{listing}{Setup of a global validation between SMAP, GLDAS and
+       ASCAT without import statements. In this case SMAP will be the spatial
+       reference, ASCAT the temporal matching reference and both SMAP and ASCAT
+       will be scaled into the GLDAS data space using CDF matching. All
+       combinations of the three datasets will be sent to the metrics
+       calculatiors. In sets of 2 for the standard metrics like R or RMSD and in
+       sets of 3 for triple collocation. }
+     \end{tcolorbox}
     }
 
-    \block{5. Extending \code{poets\degree}}{
-      \begin{multicols}{2}
+    \block{5. Usage and Contribution}{
 
+      All information about the \code{poets\degree} project and its packages can
+      be found on the website {\huge \link{http://tuw-geo.github.io/poets/}}
 
-      \end{multicols}
 
     }
 \end{columns}
