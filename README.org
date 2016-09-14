@@ -4,7 +4,7 @@ Abstract submitted to and Poster presented at the
 Application Workshop]] held in New York on September 21-22 2016.
 
 *** License
-The documents in this repository are licensed is under a [[http://creativecommons.org/licenses/by/4.0/deed][Creative Commons
-Attribution 4.0 International]]
+The documents in this repository are licensed is under a [[https://creativecommons.org/licenses/by-sa/4.0/][Creative Commons
+Attribution-ShareAlike 4.0 International]]
 
-[[http://creativecommons.org/licenses/by/4.0/deed][file:http://i.creativecommons.org/l/by/3.0/80x15.png]]
+[[https://creativecommons.org/licenses/by-sa/4.0/][file:http://i.creativecommons.org/l/by-sa/3.0/80x15.png]]
