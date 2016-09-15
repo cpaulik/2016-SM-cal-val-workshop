@@ -288,14 +288,23 @@
 \maketitle
 
 \node[draw=none, rectangle, minimum width = .6cm, align=left, inner sep = 1cm,
-text=white, text width = 30cm, anchor=west] at (0,-55)
+text=white, text width = 15cm, anchor=west] at (-10,-55)
 {
+\textbf{References}\\
+[1] Rey, S. J. (2009). Show me the code: spatial analysis and open source. Journal of Geographical Systems, 11(2), 191–207.
+
+};
+
+\node[draw=none, rectangle, minimum width = .6cm, align=left, inner sep = 1cm,
+text=white, text width = 15cm, anchor=west] at (7,-55)
+{
+
 The sources for this poster can be found at \\
 \texttt{github.com/cpaulik/2016-SM-cal-val-workshop} \\
 \ccbysa
 
-};
 
+};
 \node[draw=none, minimum width = 6cm, text width = 30cm, align=left, inner
 sep = 1cm, text=white, anchor=north west] at (-41,-52) {\textbf{Acknowledgments}\\ The
   work presented in this poster was performed as part of the scientific quality
@@ -330,12 +339,11 @@ at (41,-52) {\textbf{Christoph Paulik}\\
       packages are well suited for the validation of soil moisture datasets but
       can be used for any type of geospatial time series analyses.
 
-      In Section 2. we will first present the packages which compose
-      \code{poets\degree}, Section 3 will present an overview over the
-      geospatial time series processing pipeline and its components and Section
-      4 will show an example of working with SMAP data using the packages in
-      \code{poets\degree}. 
-      \textbf{TODO: replace by short paragraph about the importance of code sharing}
+      We present these libraries and the processing model here with the goal of
+      making it easier for ourselves and others to publish reproducible studies
+      in the field of geospatial time series processing. This is only possible
+      if the complete processing pipeline is open source and can be inspected by
+      others [1].
 
     \end{multicols}
   }
@@ -343,22 +351,22 @@ at (41,-52) {\textbf{Christoph Paulik}\\
 
   \block{2. Building blocks of \code{poets\degree}}{
 
-    \code{poets\degree} contains several Python packages that can be used alone
-    or in combination. This Section gives a short overview over the packages
-    providing most of the functionality:
+    \code{poets\degree} contains several Python packages that can be used as
+    standalone libraries or in combination. This section gives a short overview
+    of the functionality of each package.
 
      \begin{itemize}
      \item \code{pygeobase} contains the abstract base classes that define the
        interfaces for reading and writing supported datasets. These base classes
-       ensure a consistent interface for all datasets.
+       ensure a consistent interface to all datasets.
      \item \code{pygeogrids} is a package for working with discrete global grids
-       (DGGs) on different geodetic datums and also support nearest neighbor
+       (DGGs) on different geodetic datums, it also supports nearest neighbor
        search and lookup table creation.
      \item \code{pynetcf} implements the interface defined in \code{pygeobase}
        for netCDF files with a focus on the time series representations defined
        in the Climate and Forecast Metadata Conventions (CF Conventions).
      \item \code{repurpose} is a package that performs the conversion from the
-       time-slice image or swath based format most remote sensing or modelled
+       time-slice image or swath based format most remote sensing or modeled
        products come in into a time series optimized format. It uses
        \code{pynetcf} for writing the output time series.
      \item \code{smap\_io} is a package that supports downloading, reading and
@@ -373,9 +381,10 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        \textbf{E}valuation of \textbf{S}oil \textbf{M}oisture
        \textbf{O}bservations and contains the validation framework,
        implementations of common metrics and readers for the data from the
-       International Soil Moisture Network (ISMN). The pytesmo validation
-       framework performs spatial, temporal and data space matching before
-       calculation of the validation metrics.
+       International Soil Moisture Network (ISMN). The \code{pytesmo} validation
+       framework implements the processing model shown in Fig.2 in a generic way
+       so that any number of geospatial timeseries products can be compared to
+       each other.
      \end{itemize} 
 
 
@@ -387,15 +396,15 @@ at (41,-52) {\textbf{Christoph Paulik}\\
 
     \block{3. Geospatial time series processing}{
 
-      The processing or comparison of geospatial time series data generally
-      involves some pre-processing work since most remote sensing data is
-      distributed in image or swath formats. Fig. \ref{fig:pre} shows common
-      pre-processing steps that are supported by the presented software
-      packages. Data acquisition which often happens via download is supported in
-      each sensor package. Image/swath resampling and subsetting is supported in
-      the \code{repurpose} package and done during the conversion into the time
-      series format. Data storage into Climate and Forecast (CF) metadata
-      standard compliant netCDF files is handled by the \code{pynetcf} package.
+      The processing of geospatial time series data generally involves some
+      pre-processing work since most remote sensing data is distributed in image
+      or swath formats. Fig. \ref{fig:pre} shows common pre-processing steps
+      that are supported by the presented software packages. Data acquisition
+      which often happens via download is supported in each sensor package.
+      Image/swath resampling and subsetting is supported in the \code{repurpose}
+      package and done during the conversion into the time series format. Data
+      storage into Climate and Forecast (CF) metadata standard compliant netCDF
+      files is handled by the \code{pynetcf} package.
 
     }
 
@@ -426,7 +435,7 @@ at (41,-52) {\textbf{Christoph Paulik}\\
     \begin{multicols} {2}
 
       Fig. \ref{fig:val_framework} shows the processing steps implemented in the
-      pytesmo validation framework. First the n datasets are spatially matched
+      \code{pytesmo} validation framework. First the n datasets are spatially matched
       to the defined spatial reference dataset. After this the time series at
       the spatially matched locations are read and temporally matched to the
       temporal reference dataset. An optional data space matching or scaling is
@@ -446,13 +455,13 @@ at (41,-52) {\textbf{Christoph Paulik}\\
   
     \block{4. Processing SMAP data with \code{poets\degree}}{
 
-      This Section will show an example of SMAP data processing from
+      This section will show an example of SMAP data processing from
       downloading the data to using it in a validation. The setup will be
       similar with other supported datasets.
 
       After installation of the \code{smap\_io} package the shell command
       \code{smap\_download} will be available. It downloads the SMAP data from
-      the NASA servers and also supports authentification (not shown).
+      the NASA servers and also supports authentication (not shown).
 
      \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
      \label{lst:download_smap}
@@ -497,35 +506,36 @@ at (41,-52) {\textbf{Christoph Paulik}\\
        \texttt{pandas.DataFrame}.}
      \end{tcolorbox}
 
-     Listing 5 shows how to use the converted data in the \code{pytesmo} validation
-     framework together with GLDAS and ASCAT. More details about how the
-     \texttt{process} is started, parallelized and how the results look like can
-     be found in the documentation of \code{pytesmo}.
+     Listing 5 shows how to use the converted data in the \code{pytesmo}
+     validation framework together with GLDAS and ASCAT. More details about how
+     the \texttt{process} object is started, parallelized and how the results
+     look like can be found in the documentation of \code{pytesmo}.
 
      \begin{tcolorbox}[colframe=tulightblue, arc=0mm]
      \label{lst:validation}
      \inputminted[bgcolor=light-gray]{python}{validation_fwork.py}
      \tcblower
      \captionof{listing}{Setup of a global validation between SMAP, GLDAS and
-       ASCAT without import statements. In this case SMAP will be the spatial
-       reference, ASCAT the temporal matching reference and both SMAP and ASCAT
-       will be scaled into the GLDAS data space using CDF matching. All
-       combinations of the three datasets will be sent to the metrics
-       calculatiors. In sets of 2 for the standard metrics like R or RMSD and in
-       sets of 3 for triple collocation. }
+       ASCAT (without import statements and setup of ASCAT and GLDAS readers).
+       In this case SMAP will be the spatial reference, ASCAT the temporal
+       matching reference and both SMAP and ASCAT will be scaled into the GLDAS
+       data space using CDF matching. All combinations of the three datasets
+       will be sent to the metrics calculators. In sets of 2 for the standard
+       metrics like R or RMSD and in sets of 3 for triple collocation. }
      \end{tcolorbox}
     }
 
     \block{5. Usage and Contribution}{
 
       All the information about the packages and how they relate to each other
-      can be found on the \code{poets\degree} website. We also welcome
-      contributions or bug reports on Github. All the packages come with
-      permissive open source licenses so you can use them without problems.
+      can be found on the \code{poets\degree} website. We welcome contributions,
+      feedback or bug reports on Github. All the packages come with permissive
+      open source licenses so they can used with little restriction.
 
       \begin{description}
       \item [{\huge \textbf{Website}}] {\huge \link{tuw-geo.github.io/poets}}
       \item [{\huge \textbf{Github group}}] {\huge \link{github.com/tuw-geo}}
+      \item [{\huge \textbf{Contact}}] {\huge \link{christoph.paulik@geo.tuwien.ac.at}}
       \end{description}
 
 
